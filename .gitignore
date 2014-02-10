@@ -10,6 +10,7 @@ obj
 *.pidb
 *.userprefs
 *.DS_Store
+*.dwlt
 Thumbs.db
 Library/ScriptAssemblies
 Library/cache
