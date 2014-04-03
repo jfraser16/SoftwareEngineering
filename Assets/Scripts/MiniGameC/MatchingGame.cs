@@ -40,8 +40,7 @@ public class MatchingGame : MonoBehaviour {
 				structureCards[i, j] = new Card(i, j);
 				screenCards[i, j] = (GameObject)Instantiate(Resources.Load("coverCard"), new Vector3(j*1.5f-2.24f, 0, i*2.3f-3.1f), Quaternion.identity);
 				screenCards[i, j].GetComponent<Card>().x = i;
-				screenCards[i, j].GetComponent<Card>().x = j;
-
+				screenCards[i, j].GetComponent<Card>().y = j;
 				// Here I try to change the value, I use both constructor and public access
 			}
 		}
