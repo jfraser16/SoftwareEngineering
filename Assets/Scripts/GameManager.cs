@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public string instructions;
 
 	public GUIManager myGui;
-	public Timer GameTimer;
+    public GUITimer GameTimer;
 
 	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
 
@@ -20,13 +20,13 @@ public class GameManager : MonoBehaviour {
 	{
 		//Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
-		GameTimer = gameObject.GetComponent<Timer>() as Timer;
+		GameTimer = gameObject.GetComponent<GUITimer>() as GUITimer;
 	}
 	public void Start()
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
-		GameTimer = gameObject.GetComponent<Timer>() as Timer;
+        GameTimer = gameObject.GetComponent<GUITimer>() as GUITimer;
 	}
 
 	public void RunStartGame()

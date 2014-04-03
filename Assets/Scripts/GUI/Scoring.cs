@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class Scoring : MonoBehaviour {
+public class Scoring{
+	public int score { get; private set; }
+	public int gameID { get; private set; } 
 
-	// Use this for initialization
-	void Start () {
-	
+	public Scoring()
+	{
+		score = 0;
+		gameID = 0;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+	public void setScore(int _s) { score = _s; }
+	public void setID(int _i) { gameID = _i; }
 }

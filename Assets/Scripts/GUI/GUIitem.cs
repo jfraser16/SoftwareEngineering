@@ -2,7 +2,7 @@
 using System.Collections;
 
 [System.Serializable]
-public class GUIitem {
+public class GUIitem : MonoBehaviour {
 
     public bool isButton;
     public GUIContent content;
