@@ -37,10 +37,11 @@ public class MatchingGame : MonoBehaviour {
 		{
 			for(int j = 0; j < height; j++)
 			{
-				structureCards[i, j] = new Card(i, j);
+				//structureCards[i, j] = new Card(i, j);
 				screenCards[i, j] = (GameObject)Instantiate(Resources.Load("coverCard"), new Vector3(j*1.5f-2.24f, 0, i*2.3f-3.1f), Quaternion.identity);
-				screenCards[i, j].GetComponent<Card>().x = i;
-				screenCards[i, j].GetComponent<Card>().y = j;
+				structureCards[i, j] = screenCards[i, j].GetComponent<Card>();
+                structureCards[i, j].x = i;
+                structureCards[i, j].y = j;
 				// Here I try to change the value, I use both constructor and public access
 			}
 		}
@@ -60,7 +61,7 @@ public class MatchingGame : MonoBehaviour {
 					rand = Random.Range(0, numCard);
 					if(face[rand] == false)
 					{
-						structureCards[i, j].setFace(rand%(numCard/2));
+						structureCards[i, j].setFace((cardColour)(rand%(numCard/2)));
 						face[rand] = true;
 
 						Color _c = getColor((cardColour)structureCards[i, j].getFace());

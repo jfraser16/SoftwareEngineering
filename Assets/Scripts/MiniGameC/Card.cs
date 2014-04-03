@@ -15,19 +15,16 @@ public enum cardColour
 }
 
 public class Card : MonoBehaviour{
-	public int face;
-	//public Position position;
+	public cardColour face;
+    //public Position position;
 	public int x;
 	public int y;
 
-	public Card card;
+	//public Card card;
 
-	public Card(int _a, int _b)
+	public void Start()
 	{
-		face = 1000;
-		x = _a;
-		y = _b;
-		//position = new Position (_a, _b);
+		face = cardColour.MAX;
 	}
 
 	public Color getColor(cardColour _a)
@@ -43,17 +40,15 @@ public class Card : MonoBehaviour{
 		return Color.clear;
 	}
 
-	public int getFace() { return face; }
+	public cardColour getFace() { return face; }
 	//public Position getPosition() { return position; }
-	public void setFace(int _f) { face = _f; }
+	public void setFace(cardColour _f) { face = _f; }
 	//public void setPosition(int _x, int _y) { position.setX (_x); position.setY (_y); }
 	public void print() { Debug.Log (face); }
 
 	void OnMouseUp()
 	{
 		Debug.Log (x + " " + y + " " + face);
-		Color _c = getColor((cardColour)face);
-		renderer.material.color = _c;
-
+        renderer.material.color = getColor(face);
 	}
 }
