@@ -8,3 +8,17 @@ public enum buttonResponse
     RETURN_TO_MAIN,
     QUITAPP
 }
+
+public enum cardColour
+{
+    RED,
+    GREEN,
+    BLUE,
+    CYAN,
+    YELLOW,
+    MAGENTA,
+    WHITE,
+    BLACK,
+    MAX
+}
+

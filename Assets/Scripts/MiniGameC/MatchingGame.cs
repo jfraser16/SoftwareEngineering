@@ -10,8 +10,6 @@ public class MatchingGame : MonoBehaviour {
 	public GameObject[,] screenCards;
 	public Card[,] structureCards;
 
-	//public Transform pcard;
-
 	// Use this for initialization
 	void Start () 
 	{
@@ -37,22 +35,22 @@ public class MatchingGame : MonoBehaviour {
 		{
 			for(int j = 0; j < height; j++)
 			{
-				//structureCards[i, j] = new Card(i, j);
 				screenCards[i, j] = (GameObject)Instantiate(Resources.Load("coverCard"), new Vector3(j*1.5f-2.24f, 0, i*2.3f-3.1f), Quaternion.identity);
 				structureCards[i, j] = screenCards[i, j].GetComponent<Card>();
-                structureCards[i, j].x = i;
-                structureCards[i, j].y = j;
+                structureCards[i, j].SetPosition(i, j);
 				// Here I try to change the value, I use both constructor and public access
 			}
 		}
 
 		int rand; 
 		bool[] face = new bool[numCard];
-		for(int i = 0; i < numCard; i++)
+		
+        for(int i = 0; i < numCard; i++)
 		{
 			face[i] = false;
 		}
-		for(int i = 0; i < width; i++)
+
+        for(int i = 0; i < width; i++)
 		{
 			for(int j = 0; j < height; j++)
 			{
@@ -63,30 +61,12 @@ public class MatchingGame : MonoBehaviour {
 					{
 						structureCards[i, j].setFace((cardColour)(rand%(numCard/2)));
 						face[rand] = true;
-
-						Color _c = getColor((cardColour)structureCards[i, j].getFace());
-						screenCards[i, j].renderer.material.color = _c; 
-				
 						break;
 					}
 				}
 			}
 		}
 	}
-
-	public Color getColor(cardColour _a)
-	{
-		if(_a == cardColour.RED) { return Color.red; }
-		else if(_a == cardColour.GREEN) { return Color.green; }
-		else if(_a == cardColour.BLUE) { return Color.blue; }
-		else if(_a == cardColour.CYAN) { return Color.cyan; }
-		else if(_a == cardColour.YELLOW) { return Color.yellow; }
-		else if(_a == cardColour.MAGENTA) { return Color.magenta; }
-		else if(_a == cardColour.WHITE) { return Color.white; }
-		else if(_a == cardColour.BLACK) { return Color.black; }
-		return Color.clear;
-	}
-
 
 	void print()
 	{
