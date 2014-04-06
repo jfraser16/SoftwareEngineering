@@ -2,22 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class GUIitem
-{
-	public bool isButton;
-	public GUIContent content;
-	public Vector2 position;
-	public int buttonResponse;
-	public float buttonSize = 0.3f;
-}
-
-
 public class GUIManager : MonoBehaviour
 {
 	public Font myFont;
 
-	public List<GUIitem> content;
+    public GUIitem timer;
+    public GUIitem score;
+    public GUIitem tutorial;
+    public List<GUIitem> otherGameContent;
+
+    public void Start()
+    {
+        
+    }
 
     /// <summary>
     /// Returns a Rect object with appropriate screen coordinates and dimaensions
@@ -45,7 +42,14 @@ public class GUIManager : MonoBehaviour
 		else if (x > 0)
 			left = x;
 
-        return new Rect(left, (Screen.height * y)-(height/2), width, height);
+        if (y <= 0)
+            top = 0;
+        else if (y >= Screen.height - height)
+            top = Screen.height - height;
+        else if (y > 0)
+            top = y;
+        
+        return new Rect(left, top, width, height);
     }
 
     public GUIContent DrawScore()
@@ -84,14 +88,14 @@ public class GUIManager : MonoBehaviour
 
     public void OnGUI()
     {
-		foreach(GUIitem g in content)
+		foreach(GUIitem g in otherGameContent)
 		{
 			switch(g.isButton)
 			{
 			case true:
 				if(GUI.Button(this.ScreenRect(g.position.x, g.position.y, g), g.content))
 				{
-					// do something with g.buttonResponse
+                    ButtonResponse.Response(g.buttonResponse);
 				}
 				break;
 
@@ -100,29 +104,5 @@ public class GUIManager : MonoBehaviour
 				break;
 			}
 		}
-//
-//        switch (Application.loadedLevelName)
-//        {
-//            case "Logo":
-//                break;
-//
-//            case "MainTitle":
-//                break;
-//
-//            case "MainHub":
-//                break;
-//
-//            case "MiniGameA":
-//                break;
-//
-//            case "MiniGameB":
-//                break;
-//
-//            case "MiniGameC":
-//                break;
-//
-//            case "AwardsCeremony":
-//                break;
-//        }
     }
 }
