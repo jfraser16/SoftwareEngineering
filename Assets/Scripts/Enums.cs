@@ -9,8 +9,11 @@ public enum buttonResponse
     LOAD_AWARDS_SCENE,
     STARTGAME,
     PAUSE,
+    RESUME,
     RETURN_TO_MAIN,
-    QUITAPP
+    QUITAPP,
+    CODED_MANUALLY,
+    NOT_A_BUTTON
 }
 
 public enum cardColour

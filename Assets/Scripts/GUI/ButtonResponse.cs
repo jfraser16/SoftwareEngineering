@@ -48,7 +48,7 @@ public class ButtonResponse : MonoBehaviour
 
     static void Pause()
     {
- 
+         
     }
 
     static void GoToMiniGameA()
