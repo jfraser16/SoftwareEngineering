@@ -19,6 +19,14 @@ public enum cardColour
     MAGENTA,
     WHITE,
     BLACK,
+	GREY,
     MAX
 }
 
+public enum clickState
+{
+	DEFAULT,
+	FIRST_CLICK,
+	SECOND_CLICK,
+	MAX
+}
