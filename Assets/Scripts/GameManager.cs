@@ -16,44 +16,44 @@ public class GameManager : MonoBehaviour {
 	
 
 
-	public void Awake()
+	public virtual void Awake()
 	{
 		//Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
 		GameTimer = gameObject.GetComponent<GUITimer>() as GUITimer;
 	}
-	public void Start()
+	public virtual void Start()
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
         GameTimer = gameObject.GetComponent<GUITimer>() as GUITimer;
 	}
 
-	public void RunStartGame()
+	public virtual void RunStartGame()
 	{
 		//I suggest we extend Class Function through inheritance
 	}
 
-	public void RunGame()
+	public virtual void RunGame()
 	{
 		//I suggest we extend Class Function through inheritance
 	}
 
-	public void RunEndGame()
+	public virtual void RunEndGame()
 	{
 		//I suggest we extend Class Function through inheritance
 	}
-	public void RunPause()
+	public virtual void RunPause()
 	{
 		//I suggest we extend Class Function through inheritance
 	}
 
-    public void StartGame()
+    public virtual void StartGame()
     {
         CurrentState = stateTypes.RunGame; 
     }
 
-	public void Update()
+	public virtual void Update()
 	{
 		//Try to extend states and not the state machine
 		//Extend base class for state machine behavior changes
@@ -87,12 +87,12 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	public void QuitGame() 
+	public virtual void QuitGame() 
 	{
 		Application.Quit();
 	}
 
-	void RestartGame()
+	public virtual void RestartGame()
 	{
 
 	}
