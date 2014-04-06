@@ -6,7 +6,7 @@ public class MatchingGame : GameManager {
 	public int height = 4;
 	public const int numCard = 16;
 	public Timer matchingGameTimer;
-	public Scoring matchingGameScore;
+	//public Scoring matchingGameScore;
 	public GameObject[,] cardObject;
 	public Card[,] cardScript;
 	public static clickState click_state;
@@ -19,9 +19,9 @@ public class MatchingGame : GameManager {
 		cardObject = new GameObject[width, height];
 		cardScript = new Card[width, height];
 		matchingGameTimer = new Timer ();
-		matchingGameScore = new Scoring ();
+		//matchingGameScore = new Scoring ();
 		matchingGameTimer.setMaxTime (30);
-		matchingGameScore.setID (3);
+		//matchingGameScore.setID (3);
 		setUpGame ();
 		print ();
 		click_state = clickState.DEFAULT;
