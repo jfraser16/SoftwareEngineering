@@ -7,14 +7,14 @@ public class MatchingGame : MonoBehaviour {
 	public const int numCard = 16;
 	public Timer matchingGameTimer;
 	public Scoring matchingGameScore;
-	public GameObject[,] screenCards;
-	public Card[,] structureCards;
+	public GameObject[,] cardObject;
+	public Card[,] cardScript;
 
 	// Use this for initialization
 	void Start () 
 	{
-		screenCards = new GameObject[width, height];
-		structureCards = new Card[width, height];
+		cardObject = new GameObject[width, height];
+		cardScript = new Card[width, height];
 		matchingGameTimer = new Timer ();
 		matchingGameScore = new Scoring ();
 		matchingGameTimer.setMaxTime (30);
@@ -35,9 +35,9 @@ public class MatchingGame : MonoBehaviour {
 		{
 			for(int j = 0; j < height; j++)
 			{
-				screenCards[i, j] = (GameObject)Instantiate(Resources.Load("coverCard"), new Vector3(j*1.5f-2.24f, 0, i*2.3f-3.1f), Quaternion.identity);
-				structureCards[i, j] = screenCards[i, j].GetComponent<Card>();
-                structureCards[i, j].SetPosition(i, j);
+				cardObject[i, j] = (GameObject)Instantiate(Resources.Load("coverCard"), new Vector3(j*1.5f-2.24f, 0, i*2.3f-3.1f), Quaternion.identity);
+				cardScript[i, j] = cardObject[i, j].GetComponent<Card>();
+                cardScript[i, j].SetPosition(i, j);
 				// Here I try to change the value, I use both constructor and public access
 			}
 		}
@@ -59,7 +59,7 @@ public class MatchingGame : MonoBehaviour {
 					rand = Random.Range(0, numCard);
 					if(face[rand] == false)
 					{
-						structureCards[i, j].setFace((cardColour)(rand%(numCard/2)));
+						cardScript[i, j].setFace((cardColour)(rand%(numCard/2)));
 						face[rand] = true;
 						break;
 					}
