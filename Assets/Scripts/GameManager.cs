@@ -48,19 +48,24 @@ public class GameManager : MonoBehaviour {
 		//I suggest we extend Class Function through inheritance
 	}
 
+    public void StartGame()
+    {
+        CurrentState = stateTypes.RunGame; 
+    }
+
 	public void Update()
 	{
 		//Try to extend states and not the state machine
 		//Extend base class for state machine behavior changes
-		if (Input.GetButtonDown("start") && CurrentState == stateTypes.StartGame)
-		{
-			CurrentState = stateTypes.RunGame;
-		}
+        //if (Input.GetButtonDown("start") && CurrentState == stateTypes.StartGame)
+        //{
+        //    CurrentState = stateTypes.RunGame;
+        //}
 
-		if (Input.GetButtonDown("Quit") && CurrentState == stateTypes.StartGame)
-		{
-			QuitGame();
-		}
+        //if (Input.GetButtonDown("Quit") && CurrentState == stateTypes.StartGame)
+        //{
+        //    QuitGame();
+        //}
 
 		//State Machine Switch
 		if (CurrentState == stateTypes.StartGame)
@@ -82,7 +87,7 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	void QuitGame() 
+	public void QuitGame() 
 	{
 		Application.Quit();
 	}

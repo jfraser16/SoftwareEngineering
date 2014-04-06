@@ -6,7 +6,7 @@ public class MatchingGame : MonoBehaviour {
 	public int height = 4;
 	public const int numCard = 16;
 	public Timer matchingGameTimer;
-	public Scoring matchingGameScore;
+	//public Scoring matchingGameScore;
 	public GameObject[,] cardObject;
 	public Card[,] cardScript;
 
@@ -16,9 +16,9 @@ public class MatchingGame : MonoBehaviour {
 		cardObject = new GameObject[width, height];
 		cardScript = new Card[width, height];
 		matchingGameTimer = new Timer ();
-		matchingGameScore = new Scoring ();
+		//matchingGameScore = new Scoring ();
 		matchingGameTimer.setMaxTime (30);
-		matchingGameScore.setID (3);
+		//matchingGameScore.setID (3);
 		setUpGame ();
 		print ();
 
