@@ -7,11 +7,12 @@ public class Card : MonoBehaviour
     public int y { get; private set; }
     public void SetPosition(int i, int j) { x = i; y = j; }
 
-    public cardColour face { get; private set; }
+	public cardColour face { get; private set; }
     public void setFace(cardColour _f) { face = _f; SetColor(); }
     private void SetColor() { renderer.material.color = getColor(face); }
 
     public void print() { Debug.Log(face); }
+	public cardColour returnFace() { return face; }
 
     public Color getColor(cardColour _a)
     {
@@ -23,12 +24,24 @@ public class Card : MonoBehaviour
         else if (_a == cardColour.MAGENTA) { return Color.magenta; }
         else if (_a == cardColour.WHITE) { return Color.white; }
         else if (_a == cardColour.BLACK) { return Color.black; }
-        return Color.clear;
+		return Color.clear;
     }
 
     void OnMouseUp()
     {
-        Debug.Log(x + " " + y + " " + face);
-        SetColor();
+        //Debug.Log(x + " " + y + " " + face);
+		MatchingGame.click_state++;
+		if(MatchingGame.click_state == clickState.FIRST_CLICK) 
+		{
+			renderer.material.color = getColor (face);
+			MatchingGame.value1 = face;
+		}
+		else if(MatchingGame.click_state == clickState.SECOND_CLICK)
+		{
+			renderer.material.color = getColor (face);
+			MatchingGame.value2 = face;
+		}
+		//Debug.Log (MatchingGame.click_state);
+        //SetColor();
     }
 }
