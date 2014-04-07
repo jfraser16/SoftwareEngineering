@@ -1,22 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 public class Timer{
 	public float maxTime { get; private set; }
 	public float startTime { get; private set; }
 	public float currentTime { get; private set; }
 
-	public Timer()
+	public void setMaxTime(int _m) { maxTime = _m; }
+	public void setStartTime() { startTime = Time.time; }
+	public void setCurrentTime() { currentTime = Time.time; }
+
+	// To use this, you need to set maxtime in seconds and starttime just call, then startGame in udpate; 
+
+	public bool startGame () 
 	{
-		maxTime = 0;
-		startTime = 0;
-		currentTime = 0;
+		setCurrentTime ();
+		Debug.Log (currentTime - startTime);
+		//Debug.Log (currentTime - startTime);
+		if (currentTime - startTime >= maxTime)
+			return true;
+		else
+			return false;
+	} 
+	public void stop () 
+	{
+		
+
 	}
-	public void setMaxTime(float _m) { maxTime = _m; }
-	public void setStartTime(float _s) { startTime = _s; }
-	public void setCurrentTime(float _m) { currentTime = _m; }
+	public void reset () 
+	{
 
-	public void start () {} 
-	public void stop () {}
-	public void reset () {}
 
+	}
 }
