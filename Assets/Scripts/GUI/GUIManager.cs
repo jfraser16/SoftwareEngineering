@@ -8,13 +8,14 @@ public class GUIManager : MonoBehaviour
     public class GUIitem
     {
         public bool isButton;
+        public Font textFont;
+        public Color textColor;
         public GUIContent content;
         public Vector2 position;
+        public Vector2 size = new Vector2(0.3f, 0.3f);
+        public TextAnchor textAlignment;
         public buttonResponse buttonResponse;
-        public float buttonSize = 0.3f;
     }
-
-	public Font myFont;
 
     public GUIitem timer;
     public GUIitem score;
@@ -26,21 +27,20 @@ public class GUIManager : MonoBehaviour
     public List<GUIitem> otherGameContent;
     public GameManager GM;
 
-    public void Start()
+    public virtual void Start()
     {
         // Get reference to GameManager if inside a game scene
-        if(Application.loadedLevel != 0 && Application.loadedLevel != 1 && Application.loadedLevel != 2)
-		{
-
-			if (Application.loadedLevelName == "MiniGameA")
-			{
-				GM = GetComponent<SheepGameManager>() as GameManager;
-			}
-			else 
-			{
-				GM = GetComponent<GameManager>();
-			}
-		}
+        if (Application.loadedLevel != 0 && Application.loadedLevel != 1 && Application.loadedLevel != 2)
+        {
+            if (Application.loadedLevelName == "MiniGameA")
+            {
+                GM = GetComponent<SheepGameManager>() as GameManager;
+            }
+            else
+            {
+                GM = GetComponent<GameManager>();
+            }
+        }
     }
 
     /// <summary>
@@ -54,54 +54,62 @@ public class GUIManager : MonoBehaviour
     {
         float width = 0;
         float height = 0;
-		float top = 0;
-		float left = 0;
+        float top = 0;
+        float left = 0;
 
-		width = Screen.width * item.buttonSize;
-
-        if (item.buttonSize == 1)
-            height = Screen.height * item.buttonSize;
+        if (item.size.x <= 0)
+            width = 0;
+        else if (item.size.x >= 1)
+            width = Screen.width;
         else
-            height = Screen.height * (item.buttonSize / 3);
-		x *= Screen.width;
-		y *= Screen.height;
+            width = Screen.width * item.size.x;
 
-		if(x <= 0)
-			left = 0;
-		else if (x >= Screen.width - width)
-			left = Screen.width - width;
-		else if (x > 0)
-			left = x - (width/2);
+        if (item.size.y <= 0)
+            height = 0;
+        else if (item.size.y >= 1)
+            height = Screen.height;
+        else
+            height = Screen.height * item.size.y;
+
+        x *= Screen.width;
+        y *= Screen.height;
+
+        if (x <= 0)
+            left = 0;
+        else if ((x - (width / 2)) >= Screen.width - width)
+            left = Screen.width - width;
+        else if (x > 0)
+            left = x - (width / 2);
 
         if (y <= 0)
             top = 0;
-        else if (y >= Screen.height - height)
+        else if ((y - (height / 2)) >= Screen.height - height)
             top = Screen.height - height;
         else if (y > 0)
-            top = y - (height/2);
-        
+            top = y - (height / 2);
+
         return new Rect(left, top, width, height);
     }
 
-    public void DrawContinue()
+    public virtual void DrawContinue()
     {
         if (GUI.Button(ScreenRect(nextscene.position.x, nextscene.position.y, nextscene), nextscene.content))
         {
             ButtonResponse.Response(nextscene.buttonResponse);
-        } 
+        }
     }
 
-    public void DrawScore()
+    public virtual void DrawScore()
     {
         GUI.Label(ScreenRect(score.position.x, score.position.y, score), score.content);
     }
-    
-    public void DrawTimer()
+
+    public virtual void DrawTimer()
     {
         GUI.Label(ScreenRect(timer.position.x, timer.position.y, timer), timer.content);
     }
 
-    public void DrawTutorial()
+    public virtual void DrawTutorial()
     {
         // renderer Tutorial
         if (GUI.Button(ScreenRect(tutorial.position.x, tutorial.position.y, tutorial), tutorial.content))
@@ -110,7 +118,7 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    public void DrawPause()
+    public virtual void DrawPause()
     {
         if (GUI.Button(this.ScreenRect(pause.position.x, pause.position.y, pause), pause.content))
         {
@@ -118,7 +126,7 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    public void DrawQuit()
+    public virtual void DrawQuit()
     {
         if (GUI.Button(this.ScreenRect(quit.position.x, quit.position.y, quit), quit.content))
         {
@@ -126,7 +134,7 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    public void DrawResume()
+    public virtual void DrawResume()
     {
         if (GUI.Button(this.ScreenRect(resume.position.x, resume.position.y, resume), resume.content))
         {
@@ -134,7 +142,27 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    public void OnGUI()
+    public virtual void DrawOther()
+    {
+        foreach (GUIitem g in otherGameContent)
+        {
+            switch (g.isButton)
+            {
+                case true:
+                    if (GUI.Button(this.ScreenRect(g.position.x, g.position.y, g), g.content))
+                    {
+                        ButtonResponse.Response(g.buttonResponse);
+                    }
+                    break;
+
+                case false:
+                    GUI.Label(ScreenRect(g.position.x, g.position.y, g), g.content);
+                    break;
+            }
+        }
+    }
+
+    public virtual void OnGUI()
     {
         if (GM)
         {
@@ -172,21 +200,7 @@ public class GUIManager : MonoBehaviour
             }
         }
 
-		foreach(GUIitem g in otherGameContent)
-		{
-			switch(g.isButton)
-			{
-			case true:
-				if(GUI.Button(this.ScreenRect(g.position.x, g.position.y, g), g.content))
-				{
-                    ButtonResponse.Response(g.buttonResponse);
-				}
-				break;
-
-			case false:
-				GUI.Label(ScreenRect(g.position.x, g.position.y, g), g.content);
-				break;
-			}
-		}
+        else
+            DrawOther();
     }
 }
