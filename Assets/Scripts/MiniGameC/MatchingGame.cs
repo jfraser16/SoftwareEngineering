@@ -6,41 +6,44 @@ public class MatchingGame : GameManager {
 	public int height = 4;
 	public const int numCard = 16;
 	public Timer matchingGameTimer;
-	//public Scoring matchingGameScore;
 	public GameObject[,] cardObject;
 	public Card[,] cardScript;
 	public static clickState click_state;
 	public static cardColour value1;
 	public static cardColour value2;
+	public int score = 0;
+	public bool outOfTime = false;
 
 	// Use this for initialization
 	void Start () 
 	{
 		cardObject = new GameObject[width, height];
 		cardScript = new Card[width, height];
-		matchingGameTimer = new Timer ();
-		//matchingGameScore = new Scoring ();
-		matchingGameTimer.setMaxTime (30);
-		//matchingGameScore.setID (3);
 		setUpGame ();
 		print ();
 		click_state = clickState.DEFAULT;
+		matchingGameTimer = new Timer ();
+		matchingGameTimer.setMaxTime (30);
+		matchingGameTimer.setStartTime ();
 	}
 
 	// Update is called once per frame
 	void Update () {
+		outOfTime = matchingGameTimer.startGame ();
 		if((value1 == value2)&&(click_state == clickState.SECOND_CLICK))
 		{
 			Debug.Log("Yay");
-			//score up
+			score++;
+			Scoring.setScore(Application.loadedLevelName, score);
 			StartCoroutine (justWait (0));
 		}
 		else if((value1 != value2)&&(click_state == clickState.SECOND_CLICK))
 		{
 			Debug.Log("Aww");
 			StartCoroutine (justWait (1));
-
 		}
+
+
 	}
 	
 	IEnumerator justWait(int _i)
