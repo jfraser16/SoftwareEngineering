@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
 
 	public virtual void Update()
 	{
-		myGameTimer.Update(Time.deltaTime);
+
 
 
 		//State Machine Switch
