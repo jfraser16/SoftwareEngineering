@@ -30,7 +30,17 @@ public class GUIManager : MonoBehaviour
     {
         // Get reference to GameManager if inside a game scene
         if(Application.loadedLevel != 0 && Application.loadedLevel != 1 && Application.loadedLevel != 2)
-            GM = Camera.main.GetComponent<GameManager>();
+		{
+
+			if (Application.loadedLevelName == "MiniGameA")
+			{
+				GM = GetComponent<SheepGameManager>() as GameManager;
+			}
+			else 
+			{
+				GM = GetComponent<GameManager>();
+			}
+		}
     }
 
     /// <summary>
