@@ -4,8 +4,6 @@ using System.Collections;
 [RequireComponent (typeof (GUIManager))]
 public class GameManager : MonoBehaviour {
 
-	public string instructions;
-
 	public GUIManager myGui;
     public GameTimer myGameTimer = new GameTimer();
 

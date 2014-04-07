@@ -3,6 +3,14 @@ using System.Collections;
 
 [RequireComponent (typeof (GUIManager))]
 public class SheepGameManager : GameManager {
+	public SheepSpawner mySpawner;
+
+	public float timeBetweenSpawns = 1.0f;
+	public float currentTimeSpawn = 0;
+	public float lastTimeSpawn =0;
+
+
+	public int TotalSheepCreated = 0;
 
 	void Awake(){
 		base.Awake();
@@ -21,6 +29,14 @@ public class SheepGameManager : GameManager {
 	new public void RunGame()
 	{
 		base.RunGame ();
+		currentTimeSpawn = myGameTimer.currentTime;
+		if ((currentTimeSpawn - lastTimeSpawn) >= timeBetweenSpawns) 
+		{
+			lastTimeSpawn = currentTimeSpawn;
+			mySpawner.SpawnSheep();
+			TotalSheepCreated++;
+		}
+
 
 	}
 	
@@ -39,6 +55,22 @@ public class SheepGameManager : GameManager {
 
 	// Update is called once per frame
 	void Update () {
-		base.Update();
+		//State Machine Switch
+		if (CurrentState == stateTypes.StartGame)
+		{
+			RunStartGame();
+		}
+		else if(CurrentState == stateTypes.RunGame)
+		{
+			RunGame();
+		}
+		else if(CurrentState == stateTypes.EndGame)
+		{
+			RunEndGame();
+		}
+		else if(CurrentState == stateTypes.Pause)
+		{
+			RunPause();
+		}
 	}
 }
