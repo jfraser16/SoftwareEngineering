@@ -16,57 +16,57 @@ public class GameManager : MonoBehaviour {
 	public float MaxGameTime;
 
 
-	public void Awake()
+	public virtual void Awake()
 	{
 		//Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
 
 	}
-	public void Start()
+	public virtual void Start()
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
 		myGameTimer.setMaxTime(MaxGameTime);
 	}
 
-	public void RunStartGame()
+	public virtual void RunStartGame()
 	{
 		//I suggest we extend Class Function through inheritance
 
 	}
 
-	public void RunGame()
+	public virtual void RunGame()
 	{
 		//I suggest we extend Class Function through inheritance
 		myGameTimer.Update(Time.deltaTime);
+		myGui.timer.content.text = ("Time: " + (int)myGameTimer.currentTime + " / " + (int)myGameTimer.maxTime);
+		if (myGameTimer.currentTime >= myGameTimer.maxTime)
+		{
+			CurrentState = stateTypes.EndGame;
+		}
+
 	}
 
-	public void RunEndGame()
+	public virtual void RunEndGame()
 	{
 		//I suggest we extend Class Function through inheritance
 		myGameTimer.stop();
 	}
-	public void RunPause()
+	public virtual void RunPause()
 	{
 		myGameTimer.stop();
 		//I suggest we extend Class Function through inheritance
 	}
 
-	public void Update()
+    public virtual void StartGame()
+    {
+        CurrentState = stateTypes.RunGame; 
+    }
+
+	public virtual void Update()
 	{
 		myGameTimer.Update(Time.deltaTime);
 
-		//Try to extend states and not the state machine
-		//Extend base class for state machine behavior changes
-		if (Input.GetButtonDown("start") && CurrentState == stateTypes.StartGame)
-		{
-			CurrentState = stateTypes.RunGame;
-		}
-
-		if (Input.GetButtonDown("Quit") && CurrentState == stateTypes.StartGame)
-		{
-			QuitGame();
-		}
 
 		//State Machine Switch
 		if (CurrentState == stateTypes.StartGame)
@@ -88,12 +88,12 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	void QuitGame() 
+	public virtual void QuitGame() 
 	{
 		Application.Quit();
 	}
 
-	void RestartGame()
+	public virtual void RestartGame()
 	{
 		CurrentState = stateTypes.StartGame;
 		myGameTimer.reset();

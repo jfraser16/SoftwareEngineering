@@ -17,10 +17,22 @@ public class ButtonResponse : MonoBehaviour
                 Pause();
                 break;
 
-            case buttonResponse.START:
-                Start();
+            case buttonResponse.LOAD_MINIGAME_A:
+                GoToMiniGameA();
                 break;
             
+            case buttonResponse.LOAD_MINIGAME_B:
+                GoToMiniGameB();
+                break;
+
+            case buttonResponse.LOAD_MINIGAME_C:
+                GoToMiniGameC();
+                break;
+
+            case buttonResponse.LOAD_AWARDS_SCENE:
+                GoToAwardsScene();
+                break;
+
             case buttonResponse.QUITAPP:
                 QuitApp();
                 break;
@@ -36,21 +48,36 @@ public class ButtonResponse : MonoBehaviour
 
     static void Pause()
     {
- 
+         
     }
 
-    static void Start()
+    static void GoToMiniGameA()
     {
-        Application.LoadLevel("MainHub");
+        Application.LoadLevel("MiniGameA");
+    }
+
+    static void GoToMiniGameB()
+    {
+        Application.LoadLevel("MiniGameB");        
+    }
+
+    static void GoToMiniGameC()
+    {
+        Application.LoadLevel("MiniGameC");
+    }
+
+    static void GoToAwardsScene()
+    {
+        Application.LoadLevel("AwardsCeremony");
     }
 
     static void QuitApp()
     {
- 
+        Application.Quit();
     }
 
     static void ReturnToMain()
     {
- 
+        Application.LoadLevel("MainHub"); 
     }
 }

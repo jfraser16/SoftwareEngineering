@@ -3,10 +3,17 @@ using System.Collections;
 
 public enum buttonResponse
 {
-    START,
+    LOAD_MINIGAME_A,
+    LOAD_MINIGAME_B,
+    LOAD_MINIGAME_C,
+    LOAD_AWARDS_SCENE,
+    STARTGAME,
     PAUSE,
+    RESUME,
     RETURN_TO_MAIN,
-    QUITAPP
+    QUITAPP,
+    CODED_MANUALLY,
+    NOT_A_BUTTON
 }
 
 public enum cardColour
@@ -19,6 +26,14 @@ public enum cardColour
     MAGENTA,
     WHITE,
     BLACK,
+	GREY,
     MAX
 }
 
+public enum clickState
+{
+	DEFAULT,
+	FIRST_CLICK,
+	SECOND_CLICK,
+	MAX
+}
