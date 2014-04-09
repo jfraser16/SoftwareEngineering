@@ -33,14 +33,12 @@ public class MatchingGame : GameManager {
 		outOfTime = CQTimer.updateTimer ();
 		if((value1 == value2)&&(click_state == clickState.SECOND_CLICK))
 		{
-			Debug.Log("Yay");
 			score++;
 			Scoring.setScore(Application.loadedLevelName, score);
 			StartCoroutine (justWait (0));
 		}
 		else if((value1 != value2)&&(click_state == clickState.SECOND_CLICK))
 		{
-			Debug.Log("Aww");
 			StartCoroutine (justWait (1));
 		}
 	}
