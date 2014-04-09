@@ -29,7 +29,7 @@ public class SheepGameManager : GameManager {
 	new public void RunGame()
 	{
 		base.RunGame ();
-		currentTimeSpawn = myGameTimer.currentTime;
+		//currentTimeSpawn = myGameTimer.currentTime;
 		if ((currentTimeSpawn - lastTimeSpawn) >= timeBetweenSpawns) 
 		{
 			lastTimeSpawn = currentTimeSpawn;
@@ -48,7 +48,7 @@ public class SheepGameManager : GameManager {
 	new public void RunPause()
 	{
 
-		myGameTimer.stop();
+	//	myGameTimer.stop();
 
 	}
 

@@ -106,7 +106,7 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawTimer()
     {
-        GUI.Label(ScreenRect(timer.position.x, timer.position.y, timer), timer.content);
+		GUI.Label(ScreenRect(timer.position.x, timer.position.y, timer), "Timer "+(int)(CQTimer.remainTime));
     }
 
     public virtual void DrawTutorial()

@@ -5,7 +5,6 @@ public class MatchingGame : GameManager {
 	public int width = 4;
 	public int height = 4;
 	public const int numCard = 16;
-	public Timer matchingGameTimer;
 	public GameObject[,] cardObject;
 	public Card[,] cardScript;
 	public static clickState click_state;
@@ -14,22 +13,24 @@ public class MatchingGame : GameManager {
 	public int score = 0;
 	public bool outOfTime = false;
 
-	// Use this for initialization
 	void Start () 
 	{
 		cardObject = new GameObject[width, height];
 		cardScript = new Card[width, height];
 		setUpGame ();
-		print ();
 		click_state = clickState.DEFAULT;
-		matchingGameTimer = new Timer ();
-		matchingGameTimer.setMaxTime (30);
-		matchingGameTimer.setStartTime ();
+		CQTimer.setMaxTime (30);
+		CQTimer.setStartTime ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-		outOfTime = matchingGameTimer.startGame ();
+	new public void Update()
+	{
+		base.Update ();
+	}
+
+	public override void RunGame () 
+	{
+		outOfTime = CQTimer.updateTimer ();
 		if((value1 == value2)&&(click_state == clickState.SECOND_CLICK))
 		{
 			Debug.Log("Yay");
@@ -42,8 +43,6 @@ public class MatchingGame : GameManager {
 			Debug.Log("Aww");
 			StartCoroutine (justWait (1));
 		}
-
-
 	}
 	
 	IEnumerator justWait(int _i)
@@ -83,7 +82,6 @@ public class MatchingGame : GameManager {
 				cardObject[i, j] = (GameObject)Instantiate(Resources.Load("coverCard"), new Vector3(j*1.5f-2.24f, 0, i*2.3f-3.1f), Quaternion.identity);
 				cardScript[i, j] = cardObject[i, j].GetComponent<Card>();
                 cardScript[i, j].SetPosition(i, j);
-				// Here I try to change the value, I use both constructor and public access
 			}
 		}
 
@@ -112,16 +110,5 @@ public class MatchingGame : GameManager {
 				}
 			}
 		}
-	}
-
-	void print()
-	{
-		for(int i = 0; i < width; i++)
-		{
-			for(int j = 0; j < height; j++)
-			{
-
-			}
-		}	
 	}
 }

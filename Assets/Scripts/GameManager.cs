@@ -5,7 +5,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public GUIManager myGui;
-    public GameTimer myGameTimer = new GameTimer();
+//    public GameTimer myGameTimer = new GameTimer();
 
 	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
 
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
-		myGameTimer.setMaxTime(MaxGameTime);
+		//myGameTimer.setMaxTime(MaxGameTime);
 	}
 
 	public virtual void RunStartGame()
@@ -35,24 +35,25 @@ public class GameManager : MonoBehaviour {
 
 	public virtual void RunGame()
 	{
+		/*
 		//I suggest we extend Class Function through inheritance
-		myGameTimer.Update(Time.deltaTime);
-		myGui.timer.content.text = ("Time: " + (int)myGameTimer.currentTime + " / " + (int)myGameTimer.maxTime);
+		//myGameTimer.Update(Time.deltaTime);
+		//myGui.timer.content.text = ("Time: " + (int)myGameTimer.currentTime + " / " + (int)myGameTimer.maxTime);
 		if (myGameTimer.currentTime >= myGameTimer.maxTime)
 		{
 			CurrentState = stateTypes.EndGame;
 		}
-
+	*/
 	}
 
 	public virtual void RunEndGame()
 	{
 		//I suggest we extend Class Function through inheritance
-		myGameTimer.stop();
+		//myGameTimer.stop();
 	}
 	public virtual void RunPause()
 	{
-		myGameTimer.stop();
+		//myGameTimer.stop();
 		//I suggest we extend Class Function through inheritance
 	}
 
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour {
 	public virtual void RestartGame()
 	{
 		CurrentState = stateTypes.StartGame;
-		myGameTimer.reset();
+		//myGameTimer.reset();
 	}
 
 }
