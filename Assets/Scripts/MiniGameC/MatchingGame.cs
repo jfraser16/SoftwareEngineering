@@ -17,7 +17,8 @@ public class MatchingGame : GameManager {
 	// Use this for initialization
 	void Start () 
 	{
-		cardObject = new GameObject[width, height];
+        nextGame = buttonResponse.LOAD_AWARDS_SCENE;
+		cardObject = new GameObject[width, height]; 
 		cardScript = new Card[width, height];
 		setUpGame ();
 		print ();

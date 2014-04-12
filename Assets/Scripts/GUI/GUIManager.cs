@@ -7,40 +7,108 @@ public class GUIManager : MonoBehaviour
     [System.Serializable]
     public class GUIitem
     {
-        public bool isButton;
+        public bool isButton = false;
         public Font textFont;
         public Color textColor;
         public GUIContent content;
         public Vector2 position;
         public Vector2 size = new Vector2(0.3f, 0.3f);
         public TextAnchor textAlignment;
-        public buttonResponse buttonResponse;
+        public buttonResponse buttonResponse = buttonResponse.NOT_A_BUTTON;
+
+        public void SetText(string newText) { content.text = newText; }
     }
 
-    public GUIitem timer;
-    public GUIitem score;
-    public GUIitem pause;
-    public GUIitem quit;
-    public GUIitem resume;
-    public GUIitem tutorial;
-    public GUIitem nextscene;
+    public GUIitem timer { get; private set; }
+    public GUIitem quit { get; private set; }
+    public GUIitem resume { get; private set; }
+    public GUIitem pause { get; private set; }
+    public GUIitem score { get; private set; }
+    public GUIitem tutorial { get; private set; }
+    public GUIitem winLose { get; private set; }
+    public GUIitem nextscene { get; private set; }
+    
     public List<GUIitem> otherGameContent;
-    public GameManager GM;
+    private GameManager GM;
 
     public virtual void Start()
     {
         // Get reference to GameManager if inside a game scene
         if (Application.loadedLevel != 0 && Application.loadedLevel != 1 && Application.loadedLevel != 2)
         {
-            if (Application.loadedLevelName == "MiniGameA")
-            {
-                GM = GetComponent<SheepGameManager>() as GameManager;
-            }
-            else
-            {
-                GM = GetComponent<GameManager>();
-            }
+            GM = GetComponent<GameManager>();
+            BuildGUIitems();
+            GUI.skin = Resources.Load("Default Skin") as GUISkin;
         }
+    }
+
+    protected void BuildGUIitems()
+    {
+        // build tutorial item
+        tutorial = new GUIitem();
+        tutorial.isButton = true;
+        tutorial.buttonResponse = buttonResponse.CODED_MANUALLY;
+        tutorial.position = new Vector2(0.5f, 0.5f);
+        tutorial.size = new Vector2(0.9f, 0.9f);
+        tutorial.content = new GUIContent();
+        tutorial.content.image = GM.tutorialTexture;
+
+        // build timer
+        timer = new GUIitem();
+        timer.position = new Vector2(0.5f, 0.0f);
+        timer.size = new Vector2(0.3f, 0.05f);
+        timer.content = new GUIContent();
+        timer.content.text = "Timer";
+
+        // build quit button
+        quit = new GUIitem();
+        quit.isButton = true;
+        quit.buttonResponse = buttonResponse.RETURN_TO_MAIN;
+        quit.position = new Vector2(0.5f, 0.6f);
+        quit.size = new Vector2(0.3f, 0.05f);
+        quit.content = new GUIContent();
+        quit.content.text = "QUIT";
+
+        // build resume button
+        resume = new GUIitem();
+        resume.isButton = true;
+        resume.buttonResponse = buttonResponse.CODED_MANUALLY;
+        resume.position = new Vector2(0.5f, 0.4f);
+        resume.size = new Vector2(0.3f, 0.05f);
+        resume.content = new GUIContent();
+        resume.content.text = "RESUME";
+
+        // build pause button
+        pause = new GUIitem();
+        pause.isButton = true;
+        pause.buttonResponse = buttonResponse.CODED_MANUALLY;
+        pause.position = new Vector2(0.0f, 1.0f);
+        pause.size = new Vector2(0.15f, 0.1f);
+        pause.content = new GUIContent();
+        pause.content.image = Resources.Load("pause", typeof(Texture2D)) as Texture2D;
+
+        // build score label
+        score = new GUIitem();
+        score.position = new Vector2(1.0f, 0.0f);
+        score.size = new Vector2(0.3f, 0.05f);
+        score.content = new GUIContent();
+        score.content.text = "Score";
+
+        // build win/lose label
+        winLose = new GUIitem();
+        winLose.position = new Vector2(0.5f, 0.4f);
+        winLose.size = new Vector2(0.3f, 0.05f);
+        winLose.content = new GUIContent();
+        winLose.content.text = "Win/Lose";
+
+        // build next scene (continue) label
+        nextscene = new GUIitem();
+        nextscene.isButton = true;
+        nextscene.buttonResponse = GM.nextGame;
+        nextscene.position = new Vector2(1.0f, 1.0f);
+        nextscene.size = new Vector2(0.3f, 0.05f);
+        nextscene.content = new GUIContent();
+        nextscene.content.text = "Next Scene";
     }
 
     /// <summary>
@@ -111,7 +179,6 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawTutorial()
     {
-        // renderer Tutorial
         if (GUI.Button(ScreenRect(tutorial.position.x, tutorial.position.y, tutorial), tutorial.content))
         {
             GM.CurrentState = GameManager.stateTypes.RunGame;
@@ -140,6 +207,11 @@ public class GUIManager : MonoBehaviour
         {
             GM.CurrentState = GameManager.stateTypes.RunGame;
         }
+    }
+
+    public virtual void DrawWinLose()
+    {
+        GUI.Label(ScreenRect(winLose.position.x, winLose.position.y, winLose), winLose.content);
     }
 
     public virtual void DrawOther()
@@ -173,7 +245,6 @@ public class GUIManager : MonoBehaviour
 
             else if (GM.CurrentState == GameManager.stateTypes.RunGame)
             {
-                // draw score, timer, pause
                 DrawScore();
                 DrawTimer();
                 DrawPause();
@@ -182,21 +253,18 @@ public class GUIManager : MonoBehaviour
 
             else if (GM.CurrentState == GameManager.stateTypes.Pause)
             {
-                // draw score, timer
                 DrawScore();
                 DrawTimer();
-
-                // draw quit, resume
                 DrawQuit();
                 DrawResume();
             }
 
             else if (GM.CurrentState == GameManager.stateTypes.EndGame)
             {
-                // draw score, timer, continue
                 DrawScore();
                 DrawTimer();
                 DrawContinue();
+                DrawWinLose();
             }
         }
 

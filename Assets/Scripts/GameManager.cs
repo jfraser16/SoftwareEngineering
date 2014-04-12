@@ -4,9 +4,12 @@ using System.Collections;
 [RequireComponent (typeof (GUIManager))]
 public class GameManager : MonoBehaviour {
 
-	public GUIManager myGui;
-    public GameTimer myGameTimer = new GameTimer();
+    public buttonResponse nextGame { get; protected set; }
+    public Texture2D tutorialTexture;
 
+    public GUIManager myGui;
+    public GameTimer myGameTimer = new GameTimer();
+    
 	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
 
 	public stateTypes CurrentState = stateTypes.StartGame;
@@ -24,7 +27,7 @@ public class GameManager : MonoBehaviour {
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
-		myGameTimer.setMaxTime(MaxGameTime);
+		//myGameTimer.setMaxTime(MaxGameTime);
 	}
 
 	public virtual void RunStartGame()
