@@ -13,7 +13,6 @@ public class GUIManager : MonoBehaviour
         public GUIContent content;
         public Vector2 position;
         public Vector2 size = new Vector2(0.3f, 0.3f);
-        public TextAnchor textAlignment;
         public buttonResponse buttonResponse = buttonResponse.NOT_A_BUTTON;
 
         public void SetText(string newText) { content.text = newText; }
@@ -27,19 +26,20 @@ public class GUIManager : MonoBehaviour
     public GUIitem tutorial { get; private set; }
     public GUIitem winLose { get; private set; }
     public GUIitem nextscene { get; private set; }
-    
+
+    public GUISkin skin;
     public List<GUIitem> otherGameContent;
     private GameManager GM;
 
-    public virtual void Start()
+    public void Start()
     {
         // Get reference to GameManager if inside a game scene
         if (Application.loadedLevel != 0 && Application.loadedLevel != 1 && Application.loadedLevel != 2)
         {
             GM = GetComponent<GameManager>();
             BuildGUIitems();
-            GUI.skin = Resources.Load("Default Skin") as GUISkin;
         }
+        skin = Resources.Load("Default Skin") as GUISkin;
     }
 
     protected void BuildGUIitems()
@@ -56,16 +56,16 @@ public class GUIManager : MonoBehaviour
         // build timer
         timer = new GUIitem();
         timer.position = new Vector2(0.5f, 0.0f);
-        timer.size = new Vector2(0.3f, 0.05f);
+        timer.size = new Vector2(0.4f, 0.2f);
         timer.content = new GUIContent();
-        timer.content.text = "Timer";
+        timer.content.text = ((int)GM.MaxGameTime).ToString();
 
         // build quit button
         quit = new GUIitem();
         quit.isButton = true;
         quit.buttonResponse = buttonResponse.RETURN_TO_MAIN;
         quit.position = new Vector2(0.5f, 0.6f);
-        quit.size = new Vector2(0.3f, 0.05f);
+        quit.size = new Vector2(0.4f, 0.1f);
         quit.content = new GUIContent();
         quit.content.text = "QUIT";
 
@@ -74,7 +74,7 @@ public class GUIManager : MonoBehaviour
         resume.isButton = true;
         resume.buttonResponse = buttonResponse.CODED_MANUALLY;
         resume.position = new Vector2(0.5f, 0.4f);
-        resume.size = new Vector2(0.3f, 0.05f);
+        resume.size = new Vector2(1.0f, 0.1f);
         resume.content = new GUIContent();
         resume.content.text = "RESUME";
 
@@ -90,14 +90,14 @@ public class GUIManager : MonoBehaviour
         // build score label
         score = new GUIitem();
         score.position = new Vector2(1.0f, 0.0f);
-        score.size = new Vector2(0.3f, 0.05f);
+        score.size = new Vector2(0.3f, 0.1f);
         score.content = new GUIContent();
         score.content.text = "Score";
 
         // build win/lose label
         winLose = new GUIitem();
         winLose.position = new Vector2(0.5f, 0.4f);
-        winLose.size = new Vector2(0.3f, 0.05f);
+        winLose.size = new Vector2(1.0f, 0.1f);
         winLose.content = new GUIContent();
         winLose.content.text = "Win/Lose";
 
@@ -106,9 +106,9 @@ public class GUIManager : MonoBehaviour
         nextscene.isButton = true;
         nextscene.buttonResponse = GM.nextGame;
         nextscene.position = new Vector2(1.0f, 1.0f);
-        nextscene.size = new Vector2(0.3f, 0.05f);
+        nextscene.size = new Vector2(0.6f, 0.1f);
         nextscene.content = new GUIContent();
-        nextscene.content.text = "Next Scene";
+        nextscene.content.text = "Continue";
     }
 
     /// <summary>
@@ -169,7 +169,7 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawScore()
     {
-        GUI.Label(ScreenRect(score.position.x, score.position.y, score), score.content);
+        GUI.Label(ScreenRect(score.position.x, score.position.y, score), Scoring.getScore(Application.loadedLevelName).ToString());
     }
 
     public virtual void DrawTimer()
@@ -228,7 +228,7 @@ public class GUIManager : MonoBehaviour
                     break;
 
                 case false:
-                    GUI.Label(ScreenRect(g.position.x, g.position.y, g), g.content);
+                    GUI.Label(this.ScreenRect(g.position.x, g.position.y, g), g.content);
                     break;
             }
         }
@@ -236,6 +236,8 @@ public class GUIManager : MonoBehaviour
 
     public virtual void OnGUI()
     {
+        GUI.skin = skin;
+
         if (GM)
         {
             if (GM.CurrentState == GameManager.stateTypes.StartGame)
