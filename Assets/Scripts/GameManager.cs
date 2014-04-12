@@ -4,16 +4,11 @@ using System.Collections;
 [RequireComponent (typeof (GUIManager))]
 public class GameManager : MonoBehaviour {
 
-<<<<<<< HEAD
 	public GUIManager myGui;
 //    public GameTimer myGameTimer = new GameTimer();
-=======
     public buttonResponse nextGame { get; protected set; }
     public Texture2D tutorialTexture;
->>>>>>> 4296f0eddc83e09157ef57822255670c7c864efe
 
-    public GUIManager myGui;
-    public GameTimer myGameTimer = new GameTimer();
     
 	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
 
