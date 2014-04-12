@@ -15,7 +15,8 @@ public class MatchingGame : GameManager {
 
 	void Start () 
 	{
-		cardObject = new GameObject[width, height];
+        nextGame = buttonResponse.LOAD_AWARDS_SCENE;
+		cardObject = new GameObject[width, height]; 
 		cardScript = new Card[width, height];
 		setUpGame ();
 		click_state = clickState.DEFAULT;

@@ -19,6 +19,7 @@ public class SheepGameManager : GameManager {
 	// Use this for initialization
 	void Start () {
 		base.Start ();
+        nextGame = buttonResponse.LOAD_MINIGAME_C;
 	}
 	new public void RunStartGame()
 	{

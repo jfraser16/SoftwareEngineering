@@ -13,10 +13,6 @@ public class ButtonResponse : MonoBehaviour
     {
         switch (ID)
         {
-            case buttonResponse.PAUSE:
-                Pause();
-                break;
-
             case buttonResponse.LOAD_MINIGAME_A:
                 GoToMiniGameA();
                 break;
@@ -44,11 +40,6 @@ public class ButtonResponse : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    static void Pause()
-    {
-         
     }
 
     static void GoToMiniGameA()
