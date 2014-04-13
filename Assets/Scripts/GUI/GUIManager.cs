@@ -186,6 +186,7 @@ public class GUIManager : MonoBehaviour
         {
             GM.CurrentState = GameManager.stateTypes.RunGame;
             GM.StartGame();
+			CQTimer.toggle ();
         }
     }
 
@@ -194,6 +195,7 @@ public class GUIManager : MonoBehaviour
         if (GUI.Button(this.ScreenRect(pause.position.x, pause.position.y, pause), pause.content))
         {
             GM.CurrentState = GameManager.stateTypes.Pause;
+			CQTimer.toggle();
         }
     }
 
@@ -212,7 +214,8 @@ public class GUIManager : MonoBehaviour
         if (GUI.Button(this.ScreenRect(resume.position.x, resume.position.y, resume), resume.content))
         {
             GM.CurrentState = GameManager.stateTypes.RunGame;
-        }
+			CQTimer.toggle();
+		}
     }
 
     public virtual void DrawWinLose()
