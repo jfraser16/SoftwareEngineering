@@ -11,17 +11,18 @@ public class MatchingGame : GameManager {
 	public static cardColour value1;
 	public static cardColour value2;
 	public int score = 0;
-	public bool outOfTime = false;
+
+
+
 
 	void Start () 
 	{
+		base.Start ();
         nextGame = buttonResponse.LOAD_AWARDS_SCENE;
 		cardObject = new GameObject[width, height]; 
 		cardScript = new Card[width, height];
 		setUpGame ();
 		click_state = clickState.DEFAULT;
-		CQTimer.setMaxTime (30);
-		CQTimer.setStartTime ();
 	}
 
 	new public void Update()
@@ -29,9 +30,15 @@ public class MatchingGame : GameManager {
 		base.Update ();
 	}
 
+	public override void StartGame()
+	{
+
+
+	}
+
 	public override void RunGame () 
 	{
-		outOfTime = CQTimer.updateTimer ();
+		base.RunGame ();
 		if((value1 == value2)&&(click_state == clickState.SECOND_CLICK))
 		{
 			score++;
@@ -41,6 +48,10 @@ public class MatchingGame : GameManager {
 		else if((value1 != value2)&&(click_state == clickState.SECOND_CLICK))
 		{
 			StartCoroutine (justWait (1));
+		}
+		if(outOfTime == true)
+		{
+			CurrentState = stateTypes.EndGame;
 		}
 	}
 	

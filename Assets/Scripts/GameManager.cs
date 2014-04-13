@@ -8,14 +8,13 @@ public class GameManager : MonoBehaviour {
 //    public GameTimer myGameTimer = new GameTimer();
     public buttonResponse nextGame { get; protected set; }
     public Texture2D tutorialTexture;
-
-    
+	    
 	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
 
 	public stateTypes CurrentState = stateTypes.StartGame;
 
-	public float MaxGameTime;
-
+	public int MaxGameTime;
+	public bool outOfTime{ get; protected set;}
 
 	public virtual void Awake()
 	{
@@ -27,6 +26,8 @@ public class GameManager : MonoBehaviour {
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
+		CQTimer.setMaxTime (MaxGameTime);
+		CQTimer.setStartTime ();
 		//myGameTimer.setMaxTime(MaxGameTime);
 	}
 
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour {
 			CurrentState = stateTypes.EndGame;
 		}
 	*/
+		outOfTime = CQTimer.updateTimer ();
+
 	}
 
 	public virtual void RunEndGame()
@@ -102,3 +105,4 @@ public class GameManager : MonoBehaviour {
 	}
 
 }
+
