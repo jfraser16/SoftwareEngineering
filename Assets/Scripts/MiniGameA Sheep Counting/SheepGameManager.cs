@@ -30,7 +30,7 @@ public class SheepGameManager : GameManager {
 	new public void RunGame()
 	{
 		base.RunGame ();
-		//currentTimeSpawn = myGameTimer.currentTime;
+		currentTimeSpawn = CQTimer.currentTime;
 		if ((currentTimeSpawn - lastTimeSpawn) >= timeBetweenSpawns) 
 		{
 			lastTimeSpawn = currentTimeSpawn;

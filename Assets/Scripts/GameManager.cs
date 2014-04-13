@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public Texture2D tutorialTexture;
 
     
-	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
+	public enum stateTypes {StartGame, RunGame, LoseGame, EndGame,Pause};
 
 	public stateTypes CurrentState = stateTypes.StartGame;
 
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
-		//myGameTimer.setMaxTime(MaxGameTime);
+		CQTimer.setMaxTime((int)MaxGameTime);
 	}
 
 	public virtual void RunStartGame()
@@ -38,15 +38,14 @@ public class GameManager : MonoBehaviour {
 
 	public virtual void RunGame()
 	{
-		/*
-		//I suggest we extend Class Function through inheritance
-		//myGameTimer.Update(Time.deltaTime);
-		//myGui.timer.content.text = ("Time: " + (int)myGameTimer.currentTime + " / " + (int)myGameTimer.maxTime);
-		if (myGameTimer.currentTime >= myGameTimer.maxTime)
+		bool isWinOrLoss;
+		isWinOrLoss = CQTimer.updateTimer ();
+
+		if (isWinOrLoss == true)
 		{
 			CurrentState = stateTypes.EndGame;
 		}
-	*/
+	
 	}
 
 	public virtual void RunEndGame()
