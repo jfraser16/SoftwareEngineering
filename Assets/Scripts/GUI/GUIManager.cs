@@ -7,6 +7,7 @@ public class GUIManager : MonoBehaviour
     [System.Serializable]
     public class GUIitem
     {
+        public bool isActive = true;
         public bool isButton = false;
         public Font textFont;
         public Color textColor;
@@ -14,8 +15,6 @@ public class GUIManager : MonoBehaviour
         public Vector2 position;
         public Vector2 size = new Vector2(0.3f, 0.3f);
         public buttonResponse buttonResponse = buttonResponse.NOT_A_BUTTON;
-
-        public void SetText(string newText) { content.text = newText; }
     }
 
     public GUIitem timer { get; private set; }
@@ -161,6 +160,7 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawContinue()
     {
+        GUI.contentColor = nextscene.textColor;
         if (GUI.Button(ScreenRect(nextscene.position.x, nextscene.position.y, nextscene), nextscene.content))
         {
             ButtonResponse.Response(nextscene.buttonResponse);
@@ -169,19 +169,23 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawScore()
     {
+        GUI.contentColor = score.textColor;
         GUI.Label(ScreenRect(score.position.x, score.position.y, score), Scoring.getScore(Application.loadedLevelName).ToString());
     }
 
     public virtual void DrawTimer()
     {
+        GUI.contentColor = timer.textColor;
 		GUI.Label(ScreenRect(timer.position.x, timer.position.y, timer), "Timer "+(int)(CQTimer.remainTime));
     }
 
     public virtual void DrawTutorial()
     {
+        GUI.contentColor = tutorial.textColor;
         if (GUI.Button(ScreenRect(tutorial.position.x, tutorial.position.y, tutorial), tutorial.content))
         {
             GM.CurrentState = GameManager.stateTypes.RunGame;
+            GM.StartGame();
         }
     }
 
@@ -195,6 +199,7 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawQuit()
     {
+        GUI.contentColor = quit.textColor;
         if (GUI.Button(this.ScreenRect(quit.position.x, quit.position.y, quit), quit.content))
         {
             ButtonResponse.Response(quit.buttonResponse);
@@ -203,6 +208,7 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawResume()
     {
+        GUI.contentColor = resume.textColor;
         if (GUI.Button(this.ScreenRect(resume.position.x, resume.position.y, resume), resume.content))
         {
             GM.CurrentState = GameManager.stateTypes.RunGame;
@@ -211,6 +217,7 @@ public class GUIManager : MonoBehaviour
 
     public virtual void DrawWinLose()
     {
+        GUI.contentColor = winLose.textColor;
         GUI.Label(ScreenRect(winLose.position.x, winLose.position.y, winLose), winLose.content);
     }
 
@@ -218,6 +225,7 @@ public class GUIManager : MonoBehaviour
     {
         foreach (GUIitem g in otherGameContent)
         {
+            GUI.contentColor = g.textColor;
             switch (g.isButton)
             {
                 case true:
