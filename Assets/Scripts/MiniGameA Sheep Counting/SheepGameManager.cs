@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (GUIManager))]
+[RequireComponent (typeof (SheepGUIManager))]
 public class SheepGameManager : GameManager {
 	public SheepSpawner mySpawner;
 
