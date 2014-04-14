@@ -5,17 +5,10 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public GUIManager myGui;
-//    public GameTimer myGameTimer = new GameTimer();
     public buttonResponse nextGame { get; protected set; }
     public Texture2D tutorialTexture;
-<<<<<<< HEAD
 	    
 	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
-=======
-
-    
-	public enum stateTypes {StartGame, RunGame, LoseGame, EndGame,Pause};
->>>>>>> 29011865cf82885ea1eb3f428ea472075b31797f
 
 	public stateTypes CurrentState = stateTypes.StartGame;
 
@@ -32,13 +25,8 @@ public class GameManager : MonoBehaviour {
 	{
 		//Secondary Require Components
 		myGui = gameObject.GetComponent<GUIManager>() as GUIManager;
-<<<<<<< HEAD
-		CQTimer.setMaxTime (MaxGameTime);
 		CQTimer.setStartTime ();
-		//myGameTimer.setMaxTime(MaxGameTime);
-=======
 		CQTimer.setMaxTime((int)MaxGameTime);
->>>>>>> 29011865cf82885ea1eb3f428ea472075b31797f
 	}
 
 	public virtual void RunStartGame()
@@ -56,13 +44,8 @@ public class GameManager : MonoBehaviour {
 		{
 			CurrentState = stateTypes.EndGame;
 		}
-<<<<<<< HEAD
-	*/
 		outOfTime = CQTimer.updateTimer ();
 
-=======
-	
->>>>>>> 29011865cf82885ea1eb3f428ea472075b31797f
 	}
 
 	public virtual void RunEndGame()
