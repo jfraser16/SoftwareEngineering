@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour {
 	public GUIManager myGui;
     public buttonResponse nextGame { get; protected set; }
     public Texture2D tutorialTexture;
-	    
-	public enum stateTypes {StartGame, RunGame, EndGame,Pause};
+	
+	public enum stateTypes {StartGame, RunGame, LoseGame, EndGame,Pause};
 
 	public stateTypes CurrentState = stateTypes.StartGame;
 
@@ -38,15 +38,16 @@ public class GameManager : MonoBehaviour {
 	public virtual void RunGame()
 	{
 		bool isWinOrLoss;
-		isWinOrLoss = CQTimer.updateTimer ();
 
-		if (isWinOrLoss == true)
+		outOfTime = CQTimer.updateTimer ();
+		if (outOfTime == true)
 		{
 			CurrentState = stateTypes.EndGame;
 		}
 		outOfTime = CQTimer.updateTimer ();
-
 	}
+
+
 
 	public virtual void RunEndGame()
 	{
