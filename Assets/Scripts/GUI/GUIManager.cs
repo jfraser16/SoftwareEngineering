@@ -9,8 +9,8 @@ public class GUIManager : MonoBehaviour
     {
         public bool isActive = true;
         public bool isButton = false;
-        public Font textFont;
-        public Color textColor;
+        //public Font textFont;
+        public Color textColor = Color.white;
         public GUIContent content;
         public Vector2 position;
         public Vector2 size = new Vector2(0.3f, 0.3f);
